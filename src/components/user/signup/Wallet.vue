@@ -13,7 +13,7 @@
                       <label>Password</label>
                       <input v-validate="'required|alpha_dash|min:8|max:32'" data-vv-name="password" type="password" v-model="password" class="form-control font-26" placeholder="new password" />
                   </div>
-                  <button class="btn btn-info btn-lg btn-block"><icon v-if="loading" name="spinner" scale="1" spin></icon> Singup</button>
+                  <button class="btn btn-info btn-lg btn-block"><icon v-if="loading" name="spinner" scale="1" spin></icon> Sign Up</button>
               </form>
             </div>
         </div>              
