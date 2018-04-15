@@ -2,16 +2,18 @@
   <div class="row justify-content-md-center">
     <div class="col-md-8">
         <div class="card mt-5">
-            <div class="card-header">
-                <h3 class="card-title">Generate your wallet!</h3>
-            </div>
             <div class="card-body">
+              <h3 class="card-title">Generate your wallet!</h3>
+              <p class="alert alert-warning">
+                This password encrypts your private key. This does not act as seed to generate your keys.
+                You will need this password + your private key to unlock your account!
+              </p>
               <form @submit.prevent="processStep1">                  
                   <div class="form-group">
                       <label>Password</label>
-                      <input v-validate="'required|alpha_dash|min:8|max:32'" data-vv-name="password" type="password" v-model="password" class="form-control" placeholder="new password" />
+                      <input v-validate="'required|alpha_dash|min:8|max:32'" data-vv-name="password" type="password" v-model="password" class="form-control font-26" placeholder="new password" />
                   </div>
-                  <button class="btn btn-primary"><icon v-if="loading" name="spinner" scale="1" spin></icon> Singup</button>
+                  <button class="btn btn-info btn-lg btn-block"><icon v-if="loading" name="spinner" scale="1" spin></icon> Singup</button>
               </form>
             </div>
         </div>              

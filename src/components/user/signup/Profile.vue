@@ -2,23 +2,22 @@
   <div class="row mt-5">
     <div class="col-md-7">
       <div class="card">
-        <div class="card-header">
-          <h3>Wallet</h3>
-        </div>
         <div class="card-body">
+          <h3 class="card-title">Wallet</h3>
           <p class="alert alert-warning">
             <strong>Warning!</strong> Please export keystore and keep it at safe place, Other wise there is no way to login and receover your account.
           </p>          
-          <button @click.prevent="exportKeystore" class="btn btn-primary">Export keystore</button>
+          <button @click.prevent="exportKeystore" class="btn btn-lg btn-primary">Export keystore</button>
         </div>
       </div>
     </div>
     <div class="col-md-5">
       <div class="card">
-        <div class="card-header">
-          <h3>Complete your profile</h3>
-        </div>
         <div class="card-body">
+            <h3 class="card-title">Complete your profile</h3>
+            <p class="alert alert-info">
+              <strong>Note!</strong> Enter your information carefully, because you may not modify once saved!
+            </p>
             <form @submit.prevent="processStep2">
                   <div class="form-group d-flex flex-row">
                     <div class="flex-fill">
@@ -26,7 +25,7 @@
                       <input v-validate="'required|alpha_dash'" data-vv-name="firstname" type="text" v-model="user.firstName" placeholder="first name" class="form-control" />
                       <p v-show="errors.has('firstname')" class="help is-danger">{{errors.first('firstname')}}</p>
                     </div>
-                    <div>&nbsp;</div>
+                    <div>&nbsp;&nbsp;&nbsp;</div>
                     <div class="flex-fill">
                       <label>Last name </label>
                       <input v-validate="'required|alpha_dash'" data-vv-name="lastname" type="text" v-model="user.lastName" placeholder="last name" class="form-control" />
@@ -48,7 +47,7 @@
                       <textarea v-validate="'required|max:400'" data-vv-name="bio" type="text" v-model="user.bio" class="form-control" placeholder="your bio" ></textarea>
                       <p v-show="errors.has('bio')" class="help is-danger">{{errors.first('bio')}}</p>
                   </div>
-                  <button class="btn btn-primary"><icon v-if="loading" name="spinner" scale="1" spin></icon> Singup</button>
+                  <button class="btn btn-primary btn-block btn-lg"><icon v-if="loading" name="spinner" scale="1" spin></icon> Save</button>
               </form>
         </div>
       </div>
