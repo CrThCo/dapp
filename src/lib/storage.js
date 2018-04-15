@@ -1,5 +1,5 @@
 class Storage {
-  prefix = 'connect'
+  static prefix = 'connect'
   static key (k) {
     return `${Storage.prefix}_${k}`
   }

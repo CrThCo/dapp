@@ -1,9 +1,9 @@
-import bigchain from 'bigchaindb-driver'
+import { Connection, Transaction } from 'bigchaindb-driver'
 export default class BigchainService {
 
   constructor () {
     this.server = 'http://192.168.10.11:9984/api/v1/'
-    this.bdb = new bigchain.Connection(this.server)
+    this.bdb = new Connection(this.server)
   }
   setUser (user, kp) {
     this.kp = kp
@@ -11,24 +11,20 @@ export default class BigchainService {
   }
 
   makeTransaction (asset) {
-    this.tx = bigchain.Transaction.makeCreateTransaction(
+    this.tx = Transaction.makeCreateTransaction(
       asset,
       null,
-      this.makeOutputs()
+      [
+        Transaction.makeOutput(
+          Transaction.makeEd25519Condition(this.kp.publicKey)
+        )
+      ],
+      this.kp.publicKey
     )
   }
 
-  makeOutputs () {
-    return [
-      bigchain.Transaction.makeOutput(
-        bigchain.Transaction.makeEd25519Condition(this.kp.publicKey),
-        this.kp.publicKey
-      )
-    ]
-  }
-
   signTransaction () {
-    this.singed_tx = bigchain.Transaction.signTransaction(this.tx, this.kp.privateKey)
+    this.singed_tx = Transaction.signTransaction(this.tx, this.kp.privateKey)
   }
 
   sendTx () {

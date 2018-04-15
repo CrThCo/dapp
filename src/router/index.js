@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
+import UnderDevelopment from '@/components/UnderDevelopment'
 import Signup from '@/components/user/signup/Signup'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -16,6 +18,11 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: Signup
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: UnderDevelopment
     }
   ]
 })

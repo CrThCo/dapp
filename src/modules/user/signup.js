@@ -3,6 +3,7 @@ import Wallet from './../../lib/wallet'
 import User from './../../lib/user'
 import Misc from './../../lib/misc'
 import UserService from './../../services/user.service'
+import _ from 'lodash'
 
 const state = {
   loading: false,
@@ -52,12 +53,15 @@ const actions = {
   signupStep2 ({ commit }, payload) {
     commit('setApploading', true)
     commit('setStep1')
-    console.log(payload)
     setTimeout(() => {
       const user = User.getUser()
-      const userService = UserService(user)
-      const kp = userService.getKP()
-      console.log(kp)
+      const userService = new UserService(user)
+      const p = _.assign(payload, {'user': user})
+      userService.createProfile(p).then((tx) => {
+        p['id'] = tx.id
+        commit('setStep2Success', p)
+        commit('setApploading', false)
+      })
     }, 100)
   }
 }

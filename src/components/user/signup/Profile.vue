@@ -6,14 +6,9 @@
           <h3>Wallet</h3>
         </div>
         <div class="card-body">
-          <p>
-            <strong>Private Key</strong>
-            <code>{{payload.data.privateKey}}</code>
-          </p>
-          <p>
-            <strong>Address</strong>
-            <code>{{payload.data.privateKey}}</code>
-          </p>
+          <p class="alert alert-warning">
+            <strong>Warning!</strong> Please export keystore and keep it at safe place, Other wise there is no way to login and receover your account.
+          </p>          
           <button @click.prevent="exportKeystore" class="btn btn-primary">Export keystore</button>
         </div>
       </div>
@@ -24,7 +19,7 @@
           <h3>Complete your profile</h3>
         </div>
         <div class="card-body">
-            <form @submit.prevent="processStep1">
+            <form @submit.prevent="processStep2">
                   <div class="form-group d-flex flex-row">
                     <div class="flex-fill">
                       <label>First name </label>
@@ -91,7 +86,7 @@ export default {
       }
       this.$store.dispatch('exportkeystore', p)
     },
-    Step2 () {
+    processStep2 () {
       this.$store.dispatch('signupStep2', this.user)
     }
   }
