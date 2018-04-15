@@ -5,8 +5,8 @@
             <div class="card-body">
               <h3 class="card-title">Generate your wallet!</h3>
               <p class="alert alert-warning">
-                This password encrypts your private key. This does not act as seed to generate your keys.
-                You will need this password + your private key to unlock your account!
+                This password encrypts your private key. This does not act as a seed to generate your keys.
+                You will need this password AND your private key to unlock your account!
               </p>
               <form @submit.prevent="processStep1">                  
                   <div class="form-group">

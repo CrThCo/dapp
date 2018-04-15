@@ -5,9 +5,9 @@
         <div class="card-body">
           <h3 class="card-title">Wallet</h3>
           <p class="alert alert-warning">
-            <strong>Warning!</strong> Please export keystore and keep it at safe place, Other wise there is no way to login and receover your account.
+            <strong>Warning!</strong> Please download your keystore and keep it safe because there is no way to login or recover your account if you've lost the keystore.
           </p>          
-          <button @click.prevent="exportKeystore" class="btn btn-lg btn-primary">Export keystore</button>
+          <button @click.prevent="exportKeystore" class="btn btn-lg btn-primary">Download Keystore</button>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="card-body">
             <h3 class="card-title">Complete your profile</h3>
             <p class="alert alert-info">
-              <strong>Note!</strong> Enter your information carefully, because you may not modify once saved!
+              <strong>Note!</strong> Enter your information carefully, because you cannot modify once saved!
             </p>
             <form @submit.prevent="processStep2">
                   <div class="form-group d-flex flex-row">
