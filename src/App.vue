@@ -1,0 +1,50 @@
+<template>
+  <div id="app">
+    <p v-if="appLoading" class="global-loading">
+        <icon name="spinner" scale="2" spin></icon>
+    </p>
+    <b-navbar toggleable="md" type="dark" variant="info">
+      <b-container>
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-brand>Connect Application</b-navbar-brand>
+        <b-collapse is-nav id="nav_collapse">
+          
+          <b-navbar-nav class="ml-auto" v-if="!isAuthenticated">
+            <b-nav-item href="/#/login">Signin</b-nav-item>
+            <b-nav-item href="/#/register">Signup</b-nav-item>            
+          </b-navbar-nav>
+          <b-navbar-nav v-else class="ml-auto">            
+            <b-nav-item v-on:click.prevent="appLogout">Logout</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-container>
+    </b-navbar>
+    <div class="container">
+      
+    </div>    
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+import {mapGetters} from 'vuex'
+export default {
+  name: 'app',
+  computed: {
+    ...mapGetters({
+      appLoading: 'appLoading',
+      appError: 'appError',
+      appPayload: 'appPayload',
+      isAuthenticated: 'appLoading'
+    })
+  }
+}
+</script>
+
+<style>
+#app {  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+</style>
