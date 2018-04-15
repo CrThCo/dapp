@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
-import UnderDevelopment from '@/components/UnderDevelopment'
+// import UnderDevelopment from '@/components/UnderDevelopment'
 import Signup from '@/components/user/signup/Signup'
+import Login from '@/components/user/signin/Login'
 
 Vue.use(Router)
 
@@ -22,7 +23,7 @@ export default new Router({
     {
       path: '/signin',
       name: 'signin',
-      component: UnderDevelopment
+      component: Login
     }
   ]
 })
