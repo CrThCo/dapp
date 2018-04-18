@@ -48,27 +48,26 @@ const actions = {
       const data = Wallet.export(payload.pk, payload.password)
       download(data.content, data.name, 'text/plain')
       commit('setApploading', false)
-    })
+    }, 100)
   },
   signupStep2 ({ commit }, payload) {
     commit('setApploading', true)
     commit('setStep1')
-    setTimeout(() => {
-      const user = User.getUser()
-      const userService = new UserService(user)
-      const p = _.assign(payload, {'user': user})
-      userService.createProfile(p).then((tx) => {
-        p['id'] = tx.id
-        commit('setStep2Success', p)
-        commit('setApploading', false)
-      })
-    }, 100)
+    const user = User.getUser()
+    const userService = new UserService(user)
+    const p = _.assign(payload, {'user': user})
+    userService.createProfile(p).then((tx) => {
+      p['id'] = tx.id
+      commit('setStep2Success', p)
+      commit('setApploading', false)
+    })
   }
 }
 
 const mutations = {
   setStep1 (state) {
     state.loading = true
+    state.error = false
   },
   step1Success (state, payload) {
     state.loading = false

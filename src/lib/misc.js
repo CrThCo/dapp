@@ -38,6 +38,17 @@ class Misc {
   static md5 (s) {
     return crypto.createHash('md5').update(s).digest('hex')
   }
+
+  static readContent (file, onsuccess, onerror) {
+    const reader = new FileReader()
+    reader.readAsText(file, 'UTF-8')
+    reader.onload = onsuccess
+    reader.onerror = onerror
+  }
+
+  static validateKS (file) {
+    console.log(file)
+  }
 }
 
 export default Misc

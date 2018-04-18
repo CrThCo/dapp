@@ -19,6 +19,36 @@ body {
 .font-26 {
   font-size: 26px;
 }
+.cursor {
+  cursor: pointer;
+}
+
+.separator::before {
+  content: "";
+  background: #dadada;
+  width: 40%;
+  height: 1px;
+  top: 8px;
+  position: absolute;
+  left: 0;
+}
+.separator{
+  padding: 0 10px;
+  font-size: 18px;
+  line-height: 18px;
+  position: relative;
+  margin: 20px 0 10px;
+  color: #dadada;
+}
+.separator::after {
+  content: "";
+  background: #dadada;
+  width: 40%;
+  height: 1px;
+  top: 8px;
+  right: 0;
+  position: absolute;
+}
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: lightgray !important;  
