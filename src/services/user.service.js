@@ -9,9 +9,9 @@ export default class UserService {
     this.buildKP()
   }
   createProfile (asset) {
-    this.bdbService.makeTransaction(asset)
-    this.bdbService.signTransaction()
-    return this.bdbService.sendTx()
+    return this.bdbService.makeTransaction(asset)
+    // this.bdbService.signTransaction()
+    // return this.bdbService.sendTx()
   }
   buildKP () {
     const buffer = Misc.strToBuffer(this.user)

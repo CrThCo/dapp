@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bigchaindb-driver": "^4.0.0",
+    "bigchaindb-orm": "^2.0.0",
     "bootstrap": "^4.1.0",
     "bootstrap-vue": "^2.0.0-rc.6",
     "downloadjs": "^1.4.7",
