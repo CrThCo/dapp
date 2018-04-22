@@ -33,7 +33,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                      <label>Email:</label>
+                      <label>Email</label>
                       <input v-validate="'required|email'" data-vv-name="email" type="email" v-model="user.email" class="form-control" placeholder="your email address" />
                       <p v-show="errors.has('email')" class="help is-danger">{{errors.first('email')}}</p>                            
                   </div>
@@ -43,9 +43,14 @@
                       <p v-show="errors.has('username')" class="help is-danger">{{errors.first('username')}}</p>
                   </div>
                   <div class="form-group">
-                      <label>Bio</label>
-                      <textarea v-validate="'required|max:400'" data-vv-name="bio" type="text" v-model="user.bio" class="form-control" placeholder="your bio" ></textarea>
-                      <p v-show="errors.has('bio')" class="help is-danger">{{errors.first('bio')}}</p>
+                      <label>Twitter</label>
+                      <input v-validate="'required|alpha_dash|min:4|max:32'" data-vv-name="twitter" type="text" v-model="user.twitter" class="form-control" placeholder="your twitter handle" />
+                      <p v-show="errors.has('twitter')" class="help is-danger">{{errors.first('twitter')}}</p>
+                  </div>
+                  <div class="form-group">
+                      <label>Facebook</label>
+                      <input v-validate="'required|alpha_dash|min:4|max:32'" data-vv-name="facebook" type="text" v-model="user.facebook" class="form-control" placeholder="your facebook username" />
+                      <p v-show="errors.has('facebook')" class="help is-danger">{{errors.first('facebook')}}</p>
                   </div>
                   <button class="btn btn-primary btn-block btn-lg"><icon v-if="loading" name="spinner" scale="1" spin></icon> Save</button>
               </form>
