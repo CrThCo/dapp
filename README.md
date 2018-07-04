@@ -12,7 +12,7 @@ cd dapp
 npm i
 ```
 
-2. Install MetaMask Chrome extension and change settings to connect to local RPC (blockchain)
+2. Install MetaMask Chrome extension and change settings to connect to desired blockchain network
 
 3. Install and run Ganache:
 
