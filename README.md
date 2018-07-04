@@ -1,6 +1,6 @@
 # Connect DAPP
 
-Decentralized application to identify misinformation
+Decentralized application to identify misinformation.
 
 ## Getting Started
 
@@ -28,14 +28,14 @@ truffle compile
 truffle migrate
 ```
 
-3. Launch the app:
+5. Launch the app:
 
 ```bash
 npm install
 npm start
 ```
 
-4. Open `localhost:8080/` in a Chrome browser window
+6. Open `localhost:8080/` in a Chrome browser window
 
 ## Developer Notes
 
