@@ -18,7 +18,7 @@
 
 ### build
 
-This directory contains a `contracts` directory (`build/contracts`), which consists of the compiled version of the smart contracts specified in the `/contracts` directory. This directory and included files are generated via `truffle compile`.
+This directory contains a `contracts` directory (`/build/contracts`), which consists of the compiled version of the smart contracts specified in the `/contracts` directory. This directory and included files are generated via `truffle compile`.
 
 ### config
 
@@ -56,12 +56,12 @@ This directory contains the dependencies (pieces of modular, pre-built, boilerpl
 
 ### scripts
 
-This directory contains scripts that can be run by developers to build or launch files to development or production servers.
+This directory contains scripts that can be run by developers to build or launch files in different environments.
 
 - `build.js`: Bundle the files necessary for a static version of the browser client configured for production
 - `check-version.js`: Checks version of node and npm for compatibility
 - `dev-client.js`: Can be used to set up webpack hot reloading
-- `dev-server.js`: Used to build the development server for the browser client; sets up hot reloading, configures proxies, and serves static files
+- `dev-server.js`: Used to build the browser client in the development environment; sets up hot reloading, configures proxies, and serves static files
 - `utils.js`: Helper functions used in the below files (webpack configurations)
 - `webpack.base.conf.js`: Sets up webpack for all environment
 - `webpack.dev.conf.js`: Sets up webpack for dev environment
@@ -75,23 +75,31 @@ This directory contains the logic for the browser client.
 - `assets/`: Contains CSS (styling) and images
 - `components/`:
   - `user/signin/Login.vue`: HTML, CSS, and JS for the `/signin` page
-  - `signup/`: Contains HTML, CSS, and JS for: Step 1 of the `/signup` page (`Wallet.vue`), Step 2 of the /signup page (`Profile.vue`), and the `/signup` page (`Signup.vue`)
+  - `signup/`: Contains HTML, CSS, and JS for:
+    - `Wallet.vue`: Step 1 of the `/signup` page
+    - `Profile.vue`: Step 2 of the `/signup` page
+    - `Signup.vue`: Success state of the `/signup` page
   - `Dashboard.vue`: HTML, CSS, and JS for the landing page
-  - `Signup.vue`: Duplicate HTML, CSS, and JS for the `signup` page
+  - `Signup.vue`: Duplicate HTML, CSS, and JS for the `/signup` page
   - `UnderDevelopment.vue`: HTML, CSS, and JS for an under development page that is not currently in use
 - `js/`:
   - `users.js`: Provides functions to enable interaction with the UsersContract on the blockchain from the browser client
-- `lib/`: Contains helper functions to: manage Ethereum keys (`eth.js`), manage Ethereum wallets (`wallet.js`), local storage (`storage.js`), abstracted User storage (`user.js`), and miscellaneous needs (`misc.js`)
+- `lib/`: Contains helper functions to:
+  - `eth.js`: Manage Ethereum keys
+  - `wallet.js`: Manage Ethereum wallets
+  - `storage.js`: Local storage
+  - `user.js`: Abstracted User storage
+  - `Misc.js`: Miscellaneous
 - `modules/`:
   - `user/`:
     - `signin.js`: Contains logic for user sign in
     - `signup.js`: Contains logic for user sign up
   - `app.js`: Maps actions called in the browser client that should change the state of the data in the stores (global store of data in the browser client)
-`router/`: Defines what pages are loaded on routes specified for the browser client (e.g. `/signup` or `/signin`)
-`services/`:
+- `router/`: Defines what pages are loaded on routes specified for the browser client (e.g. `/signup` or `/signin`)
+- `services/`:
   - `bigchain.service.js`: Contains configs and functions to interact with an ORM (object-relational mapping) tool that manages BigchainDB
   - `user.service.js`: Contains functions for a user to interact with BigchainDB
-`store/`: Defines the store (global store of data in the browser client) for the browser client
+- `store/`: Defines the store (global store of data in the browser client) for the browser client
 - `App.vue`: Top-level HTML, CSS, and JS that renders the browser client
 - `main.js`: Main config that creates an app using the Vue framework and points to all of the necessary modules
 
@@ -118,4 +126,8 @@ This directory contains tests that can be run to test the entire app: smart cont
 ### miscellaneous
 
 - `MetaMask Chrome extension`: turns Google Chrome into an Ethereum browser, allowing websites to retrieve data from the blockchain and allowing users to securely manage identities and sign transactions
-- `RPC`: Remote Procedure Call; concept that enables one computer to call a procedure of another computer; used often in distributed computing  and blockchain communication
+- `RPC`: Remote Procedure Call; concept that enables one computer to call a procedure of another computer; used often in distributed computing and blockchain communication
+- `BigchainDB`: Software that has properties of both a blockchain and a database
+- `Ethereum`: Decentralized platform that runs smart contracts
+- `Smart Contract`: Protocols that allow performance of credible transactions without third parties; often run on a blockchain
+- `Blockchain`: continuously growing list of records, called blocks, which are linked and secured using cryptography
