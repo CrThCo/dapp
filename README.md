@@ -4,11 +4,12 @@ Decentralized application to identify misinformation.
 
 ## Getting Started
 
-1. Clone the code from this repo:
+1. Clone this repo and install dependencies:
 
 ```bash
 git clone https://github.com/MartinResearchSociety/dapp.git
 cd dapp
+npm i
 ```
 
 2. Install MetaMask Chrome extension and change settings to connect to local RPC (blockchain)
@@ -31,7 +32,6 @@ truffle migrate
 5. Launch the app:
 
 ```bash
-npm install
 npm start
 ```
 
