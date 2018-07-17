@@ -1,23 +1,24 @@
 <template>
   <div id="app">
     <p v-if="appLoading" class="global-loading">
-        <icon name="spinner" scale="2" spin></icon>
+      <icon name="spinner" scale="2" spin></icon>
     </p>
     <b-navbar toggleable="md" type="dark" variant="info">
       <b-container>
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-navbar-brand>Connect Application</b-navbar-brand>
         <b-collapse is-nav id="nav_collapse">          
-          <b-navbar-nav class="ml-auto" v-if="!isAuthenticated">            
+          <b-navbar-nav class="ml-auto" v-if="!authenticated">            
             <router-link to="/signin" class="nav-link">Sign In</router-link>            
             <router-link to="/signup" class="nav-link">Sign Up</router-link>            
           </b-navbar-nav>
-          <b-navbar-nav v-else class="ml-auto">            
-           <router-link v-on:click.prevent="appLogout" class="nav-link">Sign Out</router-link>
+          <b-navbar-nav v-else class="ml-auto">
+            <router-link to="/home" class="nav-link">Home</router-link>
+            <span v-on:click="appLogout" class="nav-link pointer">Sign Out</span>
           </b-navbar-nav>
         </b-collapse>
       </b-container>
-    </b-navbar>        
+    </b-navbar>    
     <router-view></router-view>
   </div>
 </template>
@@ -31,8 +32,14 @@ export default {
       appLoading: 'appLoading',
       appError: 'appError',
       appPayload: 'appPayload',
-      isAuthenticated: 'appLoading'
+      authenticated: 'authenticated'
     })
+  },
+  methods: {
+    appLogout () {
+      this.$store.dispatch('logOut')
+      this.$router.replace('/')
+    }
   }
 }
 </script>
@@ -42,5 +49,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.pointer {
+  cursor: pointer
 }
 </style>

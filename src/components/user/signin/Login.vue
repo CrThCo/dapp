@@ -23,7 +23,7 @@
             <form @submit.prevent="viaKS">
               <div class="form-group">
                 <label>Keystore Content:</label>
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" v-model="wallet.content"></textarea>
               </div>
               <div class="separator text-center">OR</div>
               <div class="form-group">
@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import Misc from './../../../lib/misc'
+import Misc from '../../../lib/misc'
 export default {
   name: 'Signin',
   data () {
@@ -72,20 +72,17 @@ export default {
       }
     },
     viaPK () {
-      console.log(this.wallet.pk)
+      const payload = {
+        pk: this.wallet.pk,
+        method: 'pk'
+      }
+      this.$store.dispatch('signin', payload)
     },
     viaKS () {
       const payload = {
-        password: this.password
-      }
-      if (this.wallet.ks) {
-        payload['data'] = this.wallet.ks
-        payload['method'] = 'ks'
-      } else if (this.wallet.pk) {
-        payload['data'] = this.wallet.pk
-        payload['method'] = 'pk'
-      } else {
-        console.log('error')
+        password: this.wallet.password,
+        data: this.wallet.ks ? this.wallet.ks : this.wallet.content,
+        method: this.wallet.ks ? 'ks' : 'ksc'
       }
       this.$store.dispatch('signin', payload)
     },
@@ -94,11 +91,6 @@ export default {
       console.log(file.name, file.type, file.size)
       this.wallet.ks = file
       Misc.validateKS(file)
-      // Misc.readContent(file, (e) => {
-      //   console.log(e.target.result)
-      // }, (error) => {
-      //   console.log(error)
-      // })
     }
   }
 }

@@ -47,6 +47,7 @@ class Misc {
   }
 
   static validateKS (file) {
+    // TODO: implement validation
     console.log(file)
   }
 }

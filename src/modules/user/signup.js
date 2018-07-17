@@ -1,8 +1,8 @@
 import download from 'downloadjs'
-import Wallet from './../../lib/wallet'
-import User from './../../lib/user'
-import Misc from './../../lib/misc'
-import UserService from './../../services/user.service'
+import Wallet from '../../lib/wallet'
+import User from '../../lib/user'
+import Misc from '../../lib/misc'
+import UserService from '../../services/user.service'
 import _ from 'lodash'
 
 const state = {
@@ -26,7 +26,7 @@ const getters = {
 
 const actions = {
   signupStep1 ({commit}, password) {
-    commit('setApploading', true)
+    commit('setAppLoading', true)
     commit('setStep1')
     setTimeout(() => {
       const wallet = Wallet.generate()
@@ -35,23 +35,26 @@ const actions = {
         privateKey: pk,
         password: password
       }
+      // console.log('wallet', wallet)
+      // console.log('wallet.getPublicKeyString()', wallet.getPublicKeyString())
+      // console.log('wallet.getPrivateKeyString()', wallet.getPrivateKeyString())
       const user = Misc.md5(wallet.getPrivateKeyString())
       User.setUser(user)
       commit('step1Success', data)
-      commit('setApploading', false)
+      commit('setAppLoading', false)
     }, 100)
   },
   exportkeystore ({commit}, payload) {
-    commit('setApploading', true)
+    commit('setAppLoading', true)
     setTimeout(() => {
-      console.log(payload)
       const data = Wallet.export(payload.pk, payload.password)
+      // console.log('data', data)
       download(data.content, data.name, 'text/plain')
-      commit('setApploading', false)
+      commit('setAppLoading', false)
     }, 100)
   },
   signupStep2 ({ commit }, payload) {
-    commit('setApploading', true)
+    commit('setAppLoading', true)
     commit('setStep1')
     const user = User.getUser()
     const userService = new UserService(user)
@@ -59,19 +62,30 @@ const actions = {
     userService.createProfile(p).then((tx) => {
       p['id'] = tx.id
       commit('setStep2Success', p)
-      commit('setApploading', false)
+      commit('setAppLoading', false)
     })
   }
 }
 
 const mutations = {
+  setSignUpInit (state) {
+    state.loading = false
+    state.payload = {
+      wizard: {
+        step1: true,
+        step2: false,
+        complete: false
+      },
+      data: null
+    }
+    state.error = false
+  },
   setStep1 (state) {
     state.loading = true
     state.error = false
   },
   step1Success (state, payload) {
     state.loading = false
-    state.error = false
     state.payload = {
       wizard: {
         step1: false,
@@ -80,13 +94,13 @@ const mutations = {
       },
       data: payload
     }
+    state.error = false
   },
   setStep2 (state, payload) {
-
+    //
   },
   setStep2Success (state, payload) {
     state.loading = true
-    state.error = false
     state.payload = {
       wizard: {
         step1: false,
@@ -95,9 +109,10 @@ const mutations = {
       },
       data: payload
     }
+    state.error = false
   },
   setCompleteProfile (state, payload) {
-
+    //
   }
 }
 

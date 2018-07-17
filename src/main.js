@@ -5,14 +5,15 @@ import App from './App'
 import Web3 from 'web3'
 import VeeValidate from 'vee-validate'
 import BootstrapVue from 'bootstrap-vue'
-import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons'
 
 import router from './router'
 import store from './store'
 
 import GenerateWallet from './components/user/signup/Wallet'
 import ProfileBuilder from './components/user/signup/Profile'
+import Home from './components/user/home/Home'
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -25,6 +26,7 @@ Vue.use(VeeValidate)
 Vue.component('icon', Icon)
 Vue.component('GenerateWallet', GenerateWallet)
 Vue.component('ProfileBuilder', ProfileBuilder)
+Vue.component('Home', Home)
 
 window.addEventListener('load', function () {
   if (typeof web3 !== 'undefined') {

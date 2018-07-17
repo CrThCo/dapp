@@ -1,3 +1,4 @@
+// import
 
 const state = {
   loading: false,
@@ -12,20 +13,16 @@ const getters = {
 }
 
 const actions = {
-  AppLoading ({commit}, payload) {
-    commit('setAppLoading', payload)
-  },
-  AppPayload ({commit}, payload) {
-    commit('setAppPayload', payload)
-  },
-  appError ({commit}, payload) {
-    commit('setAppError', payload)
+  logOut ({commit}, payload) {
+    localStorage.removeItem('connectToken')
+    commit('unauthenticate')
+    commit('setSignUpInit')
+    console.log('logged out')
   }
-
 }
 
 const mutations = {
-  setApploading (state, payload) {
+  setAppLoading (state, payload) {
     state.loading = payload
   },
   setAppPayload (state, payload) {

@@ -10,9 +10,10 @@ export default class BigchainService {
         app_id: 'de41bf94',
         app_key: '4c13dd90815117696fb5aab82bbb8806'
       }
-  )
+    )
     this.bdbOrm.define('connect', 'https://schema.org/v1/connect')
   }
+
   setUser (user, kp) {
     this.kp = kp
     this.user = user
@@ -20,9 +21,17 @@ export default class BigchainService {
 
   makeTransaction (asset) {
     return this.bdbOrm.models.connect
-    .create({
-      keypair: this.kp,
-      data: asset
-    })
+      .create({
+        keypair: this.kp,
+        data: asset
+      })
+  }
+
+  printAllTransactions () {
+    this.bdbOrm.models.connect
+      .retrieve()
+      .then(assets => {
+        console.log('assets', assets)
+      })
   }
 }

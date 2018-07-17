@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     exportKeystore () {
-      console.log(this.payload)
+      console.log('this.payload', this.payload)
       const p = {
         password: this.payload.data.password,
         pk: this.payload.data.privateKey

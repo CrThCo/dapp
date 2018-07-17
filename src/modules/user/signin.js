@@ -1,4 +1,6 @@
-import Misc from './../../lib/misc'
+import router from '@/router/index.js'
+import Misc from '../../lib/misc'
+
 const state = {
   loading: false,
   payload: {
@@ -9,9 +11,9 @@ const state = {
 }
 
 const getters = {
-  signin_loading: state => state.loading,
-  signin_payload: state => state.payload,
-  signin_error: state => state.error
+  signinLoading: state => state.loading,
+  signinPayload: state => state.payload,
+  signinError: state => state.error
 }
 
 const actions = {
@@ -23,30 +25,41 @@ const actions = {
     })
   },
   signin ({commit}, payload) {
-    commit('setApploading', true)
-    commit('setSignin')
+    commit('setAppLoading', true)
     const method = payload.method
     switch (method) {
       case 'ks':
-        if (payload.ks) {
-
-        } else if (payload.pk) {
-
-        }
-
+        console.log('logging in via ks file')
+        // TODO: verify valid ks file, else return
+        // localStorage.setItem('connectToken', payload.data)
+        break
+      case 'ksc':
+        console.log('logging in via ks content')
+        // TODO: verify valid ks content, else return
+        // localStorage.setItem('connectToken', payload.data)
         break
       case 'pk':
+        console.log('logging in via pk')
+        // TODO: verify valid pk, else return
+        // localStorage.setItem('connectToken', payload.pk)
+        if (window.web3.eth.accounts[0]) {
+          localStorage.setItem('connectToken', window.web3.eth.accounts[0])
+        }
         break
       default:
-        console.log('Invalid method!')
+        console.log('invalid method')
+        commit('setAppLoading', false)
+        return
     }
+    commit('authenticate')
+    commit('setAppLoading', false)
+    router.replace('/home')
   }
 }
 
 const mutations = {
-  setSignin (state) {
-    state.loading = true
-    state.error = false
+  signinMutation (state) {
+    console.log('signinMutation')
   }
 }
 

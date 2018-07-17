@@ -80,8 +80,6 @@ This directory contains the logic for the browser client.
     - `Profile.vue`: Step 2 of the `/signup` page
     - `Signup.vue`: Success state of the `/signup` page
   - `Dashboard.vue`: HTML, CSS, and JS for the landing page
-  - `Signup.vue`: Duplicate HTML, CSS, and JS for the `/signup` page
-  - `UnderDevelopment.vue`: HTML, CSS, and JS for an under development page that is not currently in use
 - `js/`:
   - `users.js`: Provides functions to enable interaction with the UsersContract on the blockchain from the browser client
 - `lib/`: Contains helper functions to:
