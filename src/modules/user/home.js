@@ -17,6 +17,9 @@ const actions = {
   printBigchainTransactions ({commit}, payload) {
     var b = new Bigchainservice()
     b.printAllTransactions()
+  },
+  createPost ({commit}, payload) {
+    Users.createPost(payload.post, state.account)
   }
 }
 

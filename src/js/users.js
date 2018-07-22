@@ -1,19 +1,21 @@
 import contract from 'truffle-contract'
-import UsersContract from '@contracts/Users.json'
+// import UsersContract from '@contracts/Users.json'
+import Connect from '@contracts/Connect.json'
+// TODO: rename this file to app.js?
 
+// TODO: rename to const Election?
 const Users = {
 
   contract: null,
-
   instance: null,
 
   init: function () {
     let self = this
 
     return new Promise(function (resolve, reject) {
-      self.contract = contract(UsersContract)
+      // self.contract = contract(UsersContract)
+      self.contract = contract(Connect)
       self.contract.setProvider(window.web3.currentProvider)
-
       self.contract.deployed().then(instance => {
         self.instance = instance
         resolve()
@@ -21,6 +23,18 @@ const Users = {
         reject(err)
       })
     })
+  },
+
+  createPost: function (data, account) {
+    let self = this
+    if (!self.contract) {
+      console.error('contract not initializaed')
+      return
+    }
+
+    self.instance.createPost(data, { from: account })
+      .then(result => console.log('result', result))
+      .catch(err => console.error(err))
   },
 
   exists: function (address) {

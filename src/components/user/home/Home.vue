@@ -6,6 +6,12 @@
       <p>Name: {{ user.name }}</p>
       <p>Email: {{ user.email }}</p>
       <div class="card card-body form-group text-center">
+        <h5 class="mb-3">Intialize</h5>
+        <form @submit.prevent="callAction('printContract')">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="card card-body form-group text-center">
         <h5 class="mb-3">createPost Test</h5>
         <form @submit.prevent="callAction('createPost')">
           <textarea class="form-control" v-model="post"></textarea>
@@ -73,8 +79,10 @@ export default {
   },
   methods: {
     callAction (action) {
+      var payload = {}
+      payload['post'] = this.post
       console.log('calling', action)
-      this.$store.dispatch(action, {})
+      this.$store.dispatch(action, payload)
     }
   }
 }
