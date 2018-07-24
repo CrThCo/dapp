@@ -1,7 +1,6 @@
 import download from 'downloadjs'
 import Wallet from './../../lib/wallet'
 import User from './../../lib/user'
-import Misc from './../../lib/misc'
 import UserService from './../../services/user.service'
 import _ from 'lodash'
 
@@ -13,7 +12,12 @@ const state = {
       step2: false,
       complete: false
     },
-    data: null
+    message: {
+      type: '',
+      text: ''
+    },
+    data: null,
+    success: false
   },
   error: false
 }
@@ -25,21 +29,27 @@ const getters = {
 }
 
 const actions = {
+  Singup ({commit}, user) {
+    commit('setApploading', true)
+    commit('setSignupLoading', true)
+    UserService.signup(user).then((res) => {
+      if (res.status === 200) {
+        commit('setSingupSuccess', true)
+      } else {
+        commit('setSingupSuccess', false)
+      }
+      console.log(res)
+      commit('setApploading', false)
+      commit('setSignupLoading', true)
+    }).catch((err) => {
+      console.log(err)
+      commit('setApploading', false)
+      commit('setSignupLoading', true)
+    })
+  },
   signupStep1 ({commit}, password) {
     commit('setApploading', true)
     commit('setStep1')
-    setTimeout(() => {
-      const wallet = Wallet.generate()
-      const pk = wallet.getPrivateKey()
-      const data = {
-        privateKey: pk,
-        password: password
-      }
-      const user = Misc.md5(wallet.getPrivateKeyString())
-      User.setUser(user)
-      commit('step1Success', data)
-      commit('setApploading', false)
-    }, 100)
   },
   exportkeystore ({commit}, payload) {
     commit('setApploading', true)
@@ -65,6 +75,18 @@ const actions = {
 }
 
 const mutations = {
+  setSignupLoading (state, loading) {
+    state.loading = loading
+  },
+  setSingupSuccess (state, status) {
+    state.payload.success = status
+  },
+  setSignupWarning (state, text) {
+    state.payload.message = {
+      type: 'warn',
+      text: text
+    }
+  },
   setStep1 (state) {
     state.loading = true
     state.error = false

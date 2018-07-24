@@ -1,104 +1,104 @@
 <template>
   <div class="container mt-5 mb-3">
     <div class="row justify-content-md-center">      
-      <div class="col-md-6">
-        <div class="card">
+      <div class="col-md-6 mt-3">
+        <div v-if="payload.data.auth === 'warn'" class="alert alert-warning">
+          <strong class="ls-1 text-uppercase">Warning - </strong>
+          <span>{{payload.data.message}}</span>
+        </div>
+        <div v-if="payload.data.auth === 'success'" class="alert alert-success">
+          <strong class="ls-1 text-uppercase">Sucess - </strong>
+          <span>{{payload.data.message}}</span>
+        </div>        
+        <div class="card mt-3 bg-white" v-if="authmode === 'email'">
           <div class="card-header">
-            <h3>Authentication methods</h3>
-          </div>          
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item list-group-item-action cursor" @click.prevent="chooseAuthmethod('pk')"><icon name="key" scale="2" class="text-muted"></icon> <span> Using Privatekey</span></li>
-            <li class="list-group-item list-group-item-action cursor" @click.prevent="chooseAuthmethod('ks')"><icon name="user-secret" scale="2" class="text-muted"></icon> <span>Using Ethereum Keystore</span></li>
-          </ul>
-          <div class="card-body" v-if="method.privateKey">
-            <form @submit.prevent="viaPK">
+            <h5 class="card-title text-uppercase mb-1">
+              <i class="fas fa-unlock-alt"></i>
+              <span class="d-inline-block pl-1 label">Sign in to your account! </span>              
+            </h5>
+          </div>
+          <div class="card-body">            
+            <form @submit.prevent="doLogin">
               <div class="form-group">
-                <label>Private Key:</label>
-                <textarea v-model="wallet.pk" class="form-control"></textarea>
+                <label class="label">Email Address:</label>
+                <input type="email" v-model="user.email" class="form-control" />
               </div>
-              <button type="submit" class="btn btn-primary btn-block btn-lg">Signin</button>
+              <div class="form-group">
+                <label class="label">Password:</label>
+                <input type="password" v-model="user.password"  class="form-control" />
+              </div>
+              <span v-if="loading" class="btn btn-outline-light pt-2">
+                <span class="d-inline-block pr-2 label">please wait</span>
+                <i class="fas fa-spinner fa-spin"></i>                
+              </span>
+              <button v-else class="btn btn-outline-dark pt-2">
+                <span class="d-inline-block pr-2 label">Sign in</span>
+                <i class="fas fa-arrow-circle-right"></i> </button>
             </form>
           </div>
-          <div class="card-body" v-else-if="method.keystore">
-            <form @submit.prevent="viaKS">
-              <div class="form-group">
-                <label>Keystore Content:</label>
-                <textarea class="form-control"></textarea>
-              </div>
-              <div class="separator text-center">OR</div>
-              <div class="form-group">
-                <label>Keystore file:</label>
-                <input @change.prevent="chooseFile" type="file" class="form-control" />
-              </div>              
-              <div class="form-group">
-                <label>Password:</label>
-                <input type="password" class="form-control" v-model="wallet.password" />
-              </div>
-              <button type="submit" class="btn btn-primary btn-block btn-lg">Signin</button>
-            </form>
-          </div>       
+        </div>
+        <div class="card mt-3" v-else>
+          <div class="card-body pb-3">
+            <h4 class="card-subtitle">
+              <i class="fas fa-unlock"></i>
+              <span class="d-inline-block pl-1 ls-1">Sign in to your account</span>
+            </h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-action cursor"
+              @click.prevent="chooseAuthmethod('email')">
+                <i class="far fa-envelope"></i>
+                <span class="d-inline-block pl-3 label"> Using Email &amp; Password</span>
+            </li>
+            <li class="list-group-item list-group-item-action cursor"
+              @click.prevent="chooseAuthmethod('twitter')">
+                <i class="fab fa-twitter"></i>
+                <span class="d-inline-block pl-3 label">Using Twitter</span>
+            </li>
+          </ul>                  
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Misc from './../../../lib/misc'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Signin',
   data () {
     return {
-      method: {
-        'privateKey': false,
-        'keystore': true
-      },
-      wallet: {
-        pk: null,
-        ks: null,
-        password: null
+      authmode: '',
+      user: {
+        email: 'geek96@gmail.com',
+        password: 'basit123'
       }
     }
   },
+  created () {
+    this.$store.commit('setDefaultPayload')
+  },
+  mounted () {
+    this.$store.commit('setDefaultPayload')
+  },
+  computed: {
+    ...mapGetters({
+      loading: 'signinLoading',
+      payload: 'signinPayload'
+    })
+  },
   methods: {
     chooseAuthmethod (method) {
-      switch (method) {
-        case 'pk':
-          this.method.privateKey = true
-          this.method.keystore = false
-          break
-        default:
-          this.method.privateKey = false
-          this.method.keystore = true
-      }
+      this.authmode = method
     },
-    viaPK () {
-      console.log(this.wallet.pk)
-    },
-    viaKS () {
-      const payload = {
-        password: this.password
-      }
-      if (this.wallet.ks) {
-        payload['data'] = this.wallet.ks
-        payload['method'] = 'ks'
-      } else if (this.wallet.pk) {
-        payload['data'] = this.wallet.pk
-        payload['method'] = 'pk'
-      } else {
-        console.log('error')
-      }
-      this.$store.dispatch('signin', payload)
-    },
-    chooseFile (e) {
-      const file = e.target.files[0]
-      console.log(file.name, file.type, file.size)
-      this.wallet.ks = file
-      Misc.validateKS(file)
-      // Misc.readContent(file, (e) => {
-      //   console.log(e.target.result)
-      // }, (error) => {
-      //   console.log(error)
-      // })
+    doLogin () {
+      this.$store.dispatch('doSignin', this.user)
+      setTimeout(() => {
+        console.log(this.payload)
+        if (this.payload.data.auth === 'success') {
+          console.log('redirecting to dashboard!')
+          this.$router.push('dashboard')
+        }
+      }, 1000)
     }
   }
 }

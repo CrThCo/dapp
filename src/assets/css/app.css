@@ -1,5 +1,6 @@
 body {
   font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #e6ecf0
 }
 
 .global-loading {
@@ -10,17 +11,18 @@ body {
   z-index: 1;
 }
 
-.list-group-item span {
-  font-size: 20px;
-  position: relative;
-  top: -6px;
-  left: 10px;
-}
 .font-26 {
   font-size: 26px;
 }
 .cursor {
   cursor: pointer;
+}
+.ls-1 {
+  letter-spacing: 1px;
+}
+.label {
+  letter-spacing: 1px;
+  text-transform: uppercase
 }
 
 .separator::before {
@@ -69,4 +71,10 @@ body {
 input::placeholder {
   color: lightgray !important;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.help {
+  margin: 7px 0 0;
+  font-weight: bold;
+  text-transform: uppercase
 }

@@ -1,7 +1,9 @@
 
 const state = {
   loading: false,
-  payload: {},
+  payload: {
+    authenticated: false
+  },
   error: false
 }
 
@@ -25,6 +27,9 @@ const actions = {
 }
 
 const mutations = {
+  setAuthenticated (state, auth) {
+    state.payload.authenticated = auth
+  },
   setApploading (state, payload) {
     state.loading = payload
   },
