@@ -7,7 +7,6 @@
           <div class="col">
             <span class="ls-1 font-weight-bold">Basit Raza </span>
             <span class="ls-1">{{p.poster}}</span>
-            
           </div>
           <div class="col  text-right">
             <span class="ls-1" title="post is verified" v-if="p.verified">
@@ -19,6 +18,9 @@
           </div>          
         </div>
         <p class="post-text mb-1">{{p.content}}</p>
+        <p v-if="p.image && p.image != ''">
+          <img class="border rounded" width="100%" :src="'http://localhost:8030/file/'+p.image" />
+        </p>
         <div class="post-meta text-muted pt-2">
           <span class="d-inline-block pr-3">
               <i class="far fa-clock text-info"></i>
@@ -26,7 +28,7 @@
             </span>
           <span class="">
             <i class="far fa-heart text-info"></i>&nbsp;
-            <span class="font-weight-bold">{{p.votes}}</span>
+            <span class="font-weight-bold">{{p.vote_count}}</span>
           </span>
         </div>
       </div>      

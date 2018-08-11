@@ -30,7 +30,7 @@ const actions = {
       console.log(err)
     })
   },
-  GetPosts ({commit}) {
+  GetPosts ({commit, dispatch}) {
     PostService.all().then(r => {
       console.log(r)
       commit('setPostData', r.data)
@@ -38,6 +38,10 @@ const actions = {
       console.log(err)
       commit('setPostData', [])
     })
+
+    setTimeout(() => {
+      dispatch('GetPosts')
+    }, 5000)
   }
 }
 

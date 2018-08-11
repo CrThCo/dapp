@@ -24,14 +24,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <TweetForm />
         <PostList />
-      </div>
-      <div class="col-md-3">
-        <div class="card shadow-dm mb-3">
-          <div class="card-body p-5"></div>
-        </div>
       </div>
     </div>
   </div>
