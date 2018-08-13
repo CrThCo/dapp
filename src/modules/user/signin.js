@@ -26,13 +26,18 @@ const actions = {
     StorageService.setUserToken('--null--')
     commit('setAuthenticated', false)
   },
-  doSignin ({commit}, user) {
+  doSignin ({commit, dispatch}, user) {
     commit('setSigninLoading', true)
     commit('setDefaultPayload')
     UserService.signin(user).then(res => {
       if (res.status === 200) {
         if (res.data.token !== undefined) {
-          StorageService.setUserToken(res.data.token)
+          const t = res.data.token
+          StorageService.setUserToken(t)
+          const d = UserService.decodeJWT(t)
+          if (d !== undefined) {
+            StorageService.setUserId(d.sub)
+          }
           commit('setAuthenticated', true)
           commit('setSigninPayload', {
             data: {

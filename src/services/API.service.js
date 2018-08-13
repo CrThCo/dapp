@@ -5,13 +5,11 @@ export default class APIService {
   static getUrl (endpoint) {
     return `http://myserver.local:8030/v1/${endpoint}`
   }
-
   static getAuthHeader () {
     return {
       Authorization: `Bearer ${StorageService.getUserToken()}`
     }
   }
-
   static post (endpoint, data) {
     const auth = APIService.getAuthHeader()
     const options = {
@@ -26,7 +24,7 @@ export default class APIService {
     return axios(options).then((res) => {
       return res
     }).catch((err) => {
-      return err
+      return err.response
     })
   }
 
@@ -43,7 +41,7 @@ export default class APIService {
     return axios(options).then((res) => {
       return res
     }).catch((err) => {
-      return err
+      return err.response
     })
   }
 }

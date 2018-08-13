@@ -15,4 +15,12 @@ export default class StorageService {
   static setUserToken (token) {
     return StorageService.setItem('user_token', token)
   }
+
+  static setUserId (id) {
+    return StorageService.setItem('user_id', id)
+  }
+
+  static getUserId () {
+    return StorageService.getItem('user_id')
+  }
 }

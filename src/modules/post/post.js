@@ -1,5 +1,5 @@
 import PostService from '@/services/post.service'
-
+import UserService from '@/services/user.service'
 const state = {
   payload: {
     loading: false,
@@ -32,16 +32,17 @@ const actions = {
   },
   GetPosts ({commit, dispatch}) {
     PostService.all().then(r => {
-      console.log(r)
       commit('setPostData', r.data)
     }).catch(err => {
-      console.log(err)
+      console.log(err.message)
       commit('setPostData', [])
     })
 
-    setTimeout(() => {
-      dispatch('GetPosts')
-    }, 5000)
+    if (UserService.isAuthenticated()) {
+      setTimeout(() => {
+        dispatch('GetPosts')
+      }, 5000)
+    }
   }
 }
 

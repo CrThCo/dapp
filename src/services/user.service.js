@@ -9,12 +9,14 @@ export default class UserService {
   static signin (user) {
     return APIService.post('user/login', user)
   }
+  static getProfile (user) {
+    return APIService.get(`user/${user}`)
+  }
 
   static isAuthenticated () {
     const token = StorageService.getUserToken()
     // decoded Token
     const d = UserService.decodeJWT(token)
-    console.log(d)
     if (d !== undefined) {
       if (d.exp * 1000 > new Date().getTime()) {
         store.commit('setAuthenticated', true)

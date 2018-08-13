@@ -4,9 +4,9 @@
       <img class="mr-2 rounded shadow-sm" style="width:48px" src="./../../assets/img/user.png" alt="Generic placeholder image">
       <div class="media-body">
         <div class="row mb-1">
-          <div class="col">
-            <span class="ls-1 font-weight-bold">Basit Raza </span>
-            <span class="ls-1">{{p.poster}}</span>
+          <div class="col" v-if="p.user.length > 0">
+            <span class="ls-1 font-weight-bold">{{p.user[0].first_name}} {{p.user[0].last_name}}</span>
+            <span class="ls-1"> @{{p.user[0].username}}</span>
           </div>
           <div class="col  text-right">
             <span class="ls-1" title="post is verified" v-if="p.verified">
@@ -19,7 +19,7 @@
         </div>
         <p class="post-text mb-1">{{p.content}}</p>
         <p v-if="p.image && p.image != ''">
-          <img class="border rounded" width="100%" :src="'http://localhost:8030/file/'+p.image" />
+          <img class="border rounded" width="100%" :src="p.image | toImageUrl" />
         </p>
         <div class="post-meta text-muted pt-2">
           <span class="d-inline-block pr-3">
