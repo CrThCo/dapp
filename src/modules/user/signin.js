@@ -22,6 +22,10 @@ const getters = {
 }
 
 const actions = {
+  doSignout ({commit}) {
+    StorageService.setUserToken('--null--')
+    commit('setAuthenticated', false)
+  },
   doSignin ({commit}, user) {
     commit('setSigninLoading', true)
     commit('setDefaultPayload')
