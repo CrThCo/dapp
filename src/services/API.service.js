@@ -3,7 +3,7 @@ import StorageService from '@/services/storage.service'
 
 export default class APIService {
   static getUrl (endpoint) {
-    return `http://myserver.local:8030/v1/${endpoint}`
+    return `http://95.142.171.58:5050/v1/${endpoint}`
   }
   static getAuthHeader () {
     return {
