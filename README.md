@@ -37,6 +37,15 @@ npm start
 
 6. Open `localhost:8080/` in a Chrome browser window
 
+## Build
+
+```
+npm install
+
+npm run build
+
+```
+
 ## Developer Notes
 
 - `npm install` failed on node version 10.4.1. Downgraded to node version 8.11.3 for successful install.
